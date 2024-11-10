@@ -5,7 +5,7 @@
 ```bash
 docker compose build && docker compose up
 ```
-После чего можно будет открыть в браузере [Документацию](http://localhost:3000/docs) и проверять эндпоинты
+После чего можно будет открыть в браузере [документацию](http://localhost:3000/docs) и проверять эндпоинты
 
 # Mongo
-Для хоста открыта порт 27018, `username: root`, `password: example`
+Для хоста открыт порт 27018, `username: root`, `password: example`
