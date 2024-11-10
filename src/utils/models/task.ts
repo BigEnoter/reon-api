@@ -1,13 +1,23 @@
 import { UUID } from "crypto";
 import { model, Schema } from "mongoose";
 
+export class Task {
+    id: UUID;
+    title: string;
+    assignedTo: Array<UUID>;
+    deadline: number;
+    done: boolean;
+    projectId: UUID;
+    creator: UUID;
+};
 export interface ITask {
     id: UUID,
     title: string,
     assignedTo: Array<UUID>,
-    deadline: Date,
+    deadline: number,
     done: boolean,
-    projectId: UUID
+    projectId: UUID,
+    creator: UUID
 };
 
 const taskSchema = new Schema<ITask>({
@@ -17,12 +27,16 @@ const taskSchema = new Schema<ITask>({
     },
     title: String,
     assignedTo: [String],
-    deadline: Date,
+    deadline: Number,
     done: {
         type: Boolean,
         default: false
     },
-    projectId: String
+    projectId: {
+        type: String,
+        index: true
+    },
+    creator: String
 });
 
 export default model("task", taskSchema);

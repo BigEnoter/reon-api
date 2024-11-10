@@ -1,0 +1,27 @@
+services:
+  reon-api:
+    container_name: reon-api
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      - MONGO_URI=mongodb://root:example@mongo:27017/
+    depends_on:
+      - mongo
+    command: npm run start:dev
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: reon
+    volumes:
+      - ./mongoData:/data/db
+    ports:
+      - 27018:27017

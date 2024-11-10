@@ -1,13 +1,33 @@
 import { UUID } from "crypto";
 import { model, Schema } from "mongoose";
+import { ApiProperty } from "@nestjs/swagger";
 
+export class Project {
+    @ApiProperty({ description: "ID проекта" })
+    id?: UUID;
+
+    @ApiProperty({ description: "Название проекта" })
+    title: string;
+
+    @ApiProperty({ description: "Описание проекта" })
+    description: string;
+
+    @ApiProperty({ description: "ID создателя проекта" })
+    creator?: UUID;
+
+    @ApiProperty({ description: "Время создания проекта" })
+    createdAt?: number;
+
+    @ApiProperty({ description: "Участники проекта" })
+    workers?: Array<UUID>;
+};
 export interface IProject {
-    id: UUID,
+    id?: UUID,
     title: string,
     description: string,
-    creator: UUID,
-    createdAt: number,
-    workers: Array<UUID>
+    creator?: UUID,
+    createdAt?: number,
+    workers?: Array<UUID>
 };
 
 const projectSchema = new Schema<IProject>({
@@ -19,7 +39,10 @@ const projectSchema = new Schema<IProject>({
     description: String,
     creator: String,
     createdAt: Number,
-    workers: [String]
+    workers: {
+        type: [String],
+        default: []
+    }
 });
 
 export default model("project", projectSchema);
